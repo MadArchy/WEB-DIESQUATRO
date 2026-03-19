@@ -9,5 +9,7 @@ Thumbs.db
 
 # Temp / Local
 node_modules/
+package.json
+package-lock.json
 *.log
 .vscode/

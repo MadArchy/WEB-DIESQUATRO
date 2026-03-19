@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 — Página no encontrada | DiesQuatro</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/png" href="assets/img/logo.png" />
+  <link rel="stylesheet" href="assets/css/fonts.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --accent: #c9a84c; --font-display: 'Outfit', sans-serif; }
+    body {
+      font-family: var(--font-display), sans-serif;
+      background: #0a0a0a;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 2rem;
+    }
+    .container { max-width: 500px; }
+    .logo-text {
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: 0.3em;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 3rem;
+    }
+    .error-code {
+      font-size: clamp(5rem, 20vw, 10rem);
+      font-weight: 900;
+      line-height: 1;
+      background: linear-gradient(135deg, #fff 40%, var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    h1 { font-size: 1.5rem; font-weight: 600; margin: 1.5rem 0 0.75rem; }
+    p { color: rgba(255,255,255,0.5); font-size: 0.95rem; line-height: 1.7; margin-bottom: 2.5rem; }
+    a {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: #fff; color: #0a0a0a;
+      font-weight: 700; font-size: 0.9rem;
+      padding: 0.85rem 2rem;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: background 0.3s, color 0.3s;
+    }
+    a:hover { background: var(--accent); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo-text">DIESQUATRO</div>
+    <div class="error-code">404</div>
+    <h1>Página no encontrada</h1>
+    <p>La dirección que buscas no existe o fue movida. Vuelve al inicio y encuentra nuestro catálogo de ropa de calidad.</p>
+    <a href="/">← Volver al inicio</a>
+  </div>
+</body>
+</html>

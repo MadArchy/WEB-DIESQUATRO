@@ -1,16 +1,97 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" prefix="og: https://ogp.me/ns#">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="DiesQuatro — Empresa de confección textil en Cúcuta. Polos, camisetas, uniformes y ropa deportiva al por mayor. Calidad superior, diseño premium." />
-  <title>DiesQuatro | Confección Textil Premium</title>
+
+  <!-- ===== SEO PRIMARIO ===== -->
+  <title>DiesQuatro | Confección Textil Premium — Cúcuta, Colombia</title>
+  <meta name="description" content="DiesQuatro — Empresa de confección textil en Cúcuta, Colombia. Fabricamos polos, camisetas, uniformes corporativos y ropa deportiva al por mayor. Calidad superior con acabados de exportación." />
+  <meta name="keywords" content="confección textil Cúcuta, polos al por mayor, camisetas mayorista, uniformes corporativos Colombia, ropa deportiva Cúcuta, DiesQuatro, fábrica de ropa Colombia" />
+  <meta name="author" content="DiesQuatro" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://madarchy.github.io/WEB-DIESQUATRO/" />
+
+  <!-- ===== GEO SEO (NEGOCIO LOCAL) ===== -->
+  <meta name="geo.region" content="CO-NSA" />
+  <meta name="geo.placename" content="Cúcuta, Norte de Santander, Colombia" />
+  <meta name="geo.position" content="7.893936;-72.504635" />
+  <meta name="ICBM" content="7.893936, -72.504635" />
+
+  <!-- ===== SEGURIDAD ===== -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()" />
+
+  <!-- ===== OPEN GRAPH (Facebook, WhatsApp, LinkedIn) ===== -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://madarchy.github.io/WEB-DIESQUATRO/" />
+  <meta property="og:title" content="DiesQuatro | Confección Textil Premium" />
+  <meta property="og:description" content="Fábrica textil en Cúcuta con calidad de exportación. Polos, camisetas, uniformes y ropa deportiva al por mayor. Contáctanos para precios mayoristas." />
+  <meta property="og:image" content="https://madarchy.github.io/WEB-DIESQUATRO/assets/img/hero.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="DiesQuatro — Colección textil premium" />
+  <meta property="og:locale" content="es_CO" />
+  <meta property="og:site_name" content="DiesQuatro" />
+
+  <!-- ===== TWITTER CARD ===== -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="DiesQuatro | Confección Textil Premium" />
+  <meta name="twitter:description" content="Fábrica textil en Cúcuta. Polos, uniformes y ropa deportiva al por mayor con calidad de exportación." />
+  <meta name="twitter:image" content="https://madarchy.github.io/WEB-DIESQUATRO/assets/img/hero.png" />
+
+  <!-- ===== SCHEMA.ORG — NEGOCIO LOCAL (Google Rich Results) ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ClothingStore",
+    "name": "DiesQuatro",
+    "description": "Empresa de confección textil en Cúcuta. Fabricamos polos, camisetas, uniformes corporativos y ropa deportiva al por mayor con calidad de exportación.",
+    "url": "https://madarchy.github.io/WEB-DIESQUATRO/",
+    "logo": "https://madarchy.github.io/WEB-DIESQUATRO/assets/img/logo.png",
+    "image": "https://madarchy.github.io/WEB-DIESQUATRO/assets/img/hero.png",
+    "telephone": "+573142253136",
+    "priceRange": "$$",
+    "currenciesAccepted": "COP",
+    "paymentAccepted": "Cash, Bank Transfer",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Cúcuta",
+      "addressRegion": "Norte de Santander",
+      "addressCountry": "CO"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 7.893936,
+      "longitude": -72.504635
+    },
+    "sameAs": [
+      "https://www.facebook.com/DiesQuatro.Oficial/",
+      "https://www.instagram.com/diesquatro",
+      "https://www.tiktok.com/@diesquatro"
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+573142253136",
+      "contactType": "sales",
+      "availableLanguage": "Spanish",
+      "contactOption": "TollFree"
+    }
+  }
+  </script>
+
+  <!-- ===== FAVICONS ===== -->
+  <link rel="icon" type="image/png" href="assets/img/logo.png" />
+  <link rel="apple-touch-icon" href="assets/img/logo.webp" />
+
+  <!-- ===== TIPOGRAFÍA Y ESTILOS ===== -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="assets/css/fonts.css" />
-  <link rel="shortcut icon" type="image/png" href="assets/img/logo.png" />
-  <link rel="stylesheet" href="assets/css/style.css?v=14" />
-</head>
+  <link rel="stylesheet" href="assets/css/style.css?v=15" />
+
 <body>
 
   <!-- ===================== NAVBAR ===================== -->
@@ -91,7 +172,7 @@
     </div>
     <div class="hero-image-wrap">
       <div class="hero-img-frame">
-        <video src="assets/video/polos_cGmxj1fs.mp4" autoplay loop muted playsinline class="hero-img" id="hero-img"></video>
+        <video src="assets/video/polos_cGmxj1fs.mp4" poster="assets/img/hero.webp" autoplay loop muted playsinline class="hero-img" id="hero-img"></video>
         <div class="img-overlay-tag">Nueva Colección 2025</div>
       </div>
     </div>
@@ -173,11 +254,11 @@
 
         <div class="producto-card" id="card-polos" data-reveal>
           <div class="producto-img-wrap slide-container">
-            <img src="assets/img/slider_1.png" alt="Polos DQ Negros" class="producto-slider-img active" />
-            <img src="assets/img/slider_2.png" alt="Camiseta DQ Blanca" class="producto-slider-img" />
-            <img src="assets/img/slider_3.png" alt="Polo DQ Gris Oscuro" class="producto-slider-img" />
-            <img src="assets/img/slider_4.png" alt="Camiseta DQ Azul" class="producto-slider-img" />
-            <img src="assets/img/slider_5.png" alt="Polo DQ Oliva" class="producto-slider-img" />
+            <img loading="lazy" src="assets/img/slider_1.webp" alt="Polos DQ Negros" class="producto-slider-img active" />
+            <img loading="lazy" src="assets/img/slider_2.webp" alt="Camiseta DQ Blanca" class="producto-slider-img" />
+            <img loading="lazy" src="assets/img/slider_3.webp" alt="Polo DQ Gris Oscuro" class="producto-slider-img" />
+            <img loading="lazy" src="assets/img/slider_4.webp" alt="Camiseta DQ Azul" class="producto-slider-img" />
+            <img loading="lazy" src="assets/img/slider_5.webp" alt="Polo DQ Oliva" class="producto-slider-img" />
             <div class="producto-badge">Más Vendido</div>
           </div>
           <div class="producto-info">
@@ -189,11 +270,11 @@
 
         <div class="producto-card" id="card-camisetas" data-reveal>
           <div class="producto-img-wrap slide-container">
-            <img src="assets/img/cam_1.png" alt="Camiseta DQ Negra" class="producto-slider-img active" />
-            <img src="assets/img/cam_2.png" alt="Camiseta DQ Gris" class="producto-slider-img" />
-            <img src="assets/img/cam_3.png" alt="Camiseta DQ Blanca" class="producto-slider-img" />
-            <img src="assets/img/cam_4.png" alt="Camiseta DQ Roja" class="producto-slider-img" />
-            <img src="assets/img/cam_5.png" alt="Camiseta DQ Azul" class="producto-slider-img" />
+            <img loading="lazy" src="assets/img/cam_1.webp" alt="Camiseta DQ Negra" class="producto-slider-img active" />
+            <img loading="lazy" src="assets/img/cam_2.webp" alt="Camiseta DQ Gris" class="producto-slider-img" />
+            <img loading="lazy" src="assets/img/cam_3.webp" alt="Camiseta DQ Blanca" class="producto-slider-img" />
+            <img loading="lazy" src="assets/img/cam_4.webp" alt="Camiseta DQ Roja" class="producto-slider-img" />
+            <img loading="lazy" src="assets/img/cam_5.webp" alt="Camiseta DQ Azul" class="producto-slider-img" />
           </div>
           <div class="producto-info">
             <h3>Camisetas</h3>
@@ -204,11 +285,11 @@
 
         <div class="producto-card" id="card-uniformes" data-reveal>
           <div class="producto-img-wrap slide-container">
-            <img src="assets/img/uni_1.png" alt="Uniforme Corporativo DQ" class="producto-slider-img active" />
-            <img src="assets/img/uni_2.png" alt="Polo Corporativo DQ" class="producto-slider-img" />
-            <img src="assets/img/uni_3.png" alt="Chaqueta Corporativa DQ" class="producto-slider-img" />
-            <img src="assets/img/uni_4.png" alt="Delantal Corporativo DQ" class="producto-slider-img" />
-            <img src="assets/img/uni_5.png" alt="Uniforme Médico DQ" class="producto-slider-img" />
+            <img loading="lazy" src="assets/img/uni_1.webp" alt="Uniforme Corporativo DQ" class="producto-slider-img active" />
+            <img loading="lazy" src="assets/img/uni_2.webp" alt="Polo Corporativo DQ" class="producto-slider-img" />
+            <img loading="lazy" src="assets/img/uni_3.webp" alt="Chaqueta Corporativa DQ" class="producto-slider-img" />
+            <img loading="lazy" src="assets/img/uni_4.webp" alt="Delantal Corporativo DQ" class="producto-slider-img" />
+            <img loading="lazy" src="assets/img/uni_5.webp" alt="Uniforme Médico DQ" class="producto-slider-img" />
             <div class="producto-badge">Corporativo</div>
           </div>
           <div class="producto-info">
@@ -220,11 +301,11 @@
 
         <div class="producto-card" id="card-deportiva" data-reveal>
           <div class="producto-img-wrap slide-container">
-            <img src="assets/img/dep_1.png" alt="Camiseta Deportiva DQ" class="producto-slider-img active" />
-            <img src="assets/img/dep_2.png" alt="Short Deportivo DQ" class="producto-slider-img" />
-            <img src="assets/img/dep_3.png" alt="Chaqueta Deportiva DQ" class="producto-slider-img" />
-            <img src="assets/img/dep_4.png" alt="Conjunto Deportivo Mujer DQ" class="producto-slider-img" />
-            <img src="assets/img/dep_5.png" alt="Camiseta Entrenamiento DQ" class="producto-slider-img" />
+            <img loading="lazy" src="assets/img/dep_1.webp" alt="Camiseta Deportiva DQ" class="producto-slider-img active" />
+            <img loading="lazy" src="assets/img/dep_2.webp" alt="Short Deportivo DQ" class="producto-slider-img" />
+            <img loading="lazy" src="assets/img/dep_3.webp" alt="Chaqueta Deportiva DQ" class="producto-slider-img" />
+            <img loading="lazy" src="assets/img/dep_4.webp" alt="Conjunto Deportivo Mujer DQ" class="producto-slider-img" />
+            <img loading="lazy" src="assets/img/dep_5.webp" alt="Camiseta Entrenamiento DQ" class="producto-slider-img" />
             <div class="producto-badge">Premium Sport</div>
           </div>
           <div class="producto-info">
@@ -333,7 +414,7 @@
   <footer class="footer">
     <div class="footer-container">
       <div class="footer-brand">
-        <img src="assets/img/logo.png" alt="DiesQuatro Logo" class="footer-logo-img" />
+        <img src="assets/img/logo.webp" alt="DiesQuatro Logo" class="footer-logo-img" />
         <p>Confección textil premium.<br/>Cúcuta, Colombia.</p>
         <div class="footer-social">
           <a href="https://www.tiktok.com/@diesquatro" target="_blank" rel="noopener" aria-label="TikTok" class="social-icon">

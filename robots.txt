@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Archivos de sistema - no indexar
+Disallow: /assets/fonts/
+Disallow: /.git/
+
+# Sitemap ubicación
+Sitemap: https://madarchy.github.io/WEB-DIESQUATRO/sitemap.xml
