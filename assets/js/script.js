@@ -174,14 +174,14 @@ if (prismScene && prismContainer) {
     // 2: Premium Gold Design (DQ Logo)
     {
       color: '#c9a84c',
-      logoHTML: '<img src="logo.png" class="prism-logo-img" alt="DQ Logo" />',
+      logoHTML: '<img src="assets/img/logo.png" class="prism-logo-img" alt="DQ Logo" />',
       textHTML: 'DIES<span class="accent">QUATRO</span>',
       line: false
     },
     // 3: Green Glow Design (Top-Left Image)
     {
       color: '#00e676',
-      logoHTML: '<img src="logo.png" class="prism-logo-img" alt="DQ Logo" style="filter: invert(1) drop-shadow(0 0 10px #00e676);" />',
+      logoHTML: '<img src="assets/img/logo.png" class="prism-logo-img" alt="DQ Logo" style="filter: invert(1) drop-shadow(0 0 10px #00e676);" />',
       textHTML: 'DIES<span class="accent">QUATRO</span>',
       line: false
     },
@@ -290,7 +290,7 @@ if (productosSection) {
       wm.style.transform = `rotate(${Math.random() * 60 - 30}deg)`;
       
       const img = document.createElement('img');
-      img.src = 'logo.png';
+      img.src = 'assets/img/logo.png';
       img.alt = '';
       
       wm.appendChild(img);
