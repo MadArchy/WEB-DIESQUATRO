@@ -1,6 +1,18 @@
 /* ==================== RESET & BASE ==================== */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+/* Accesibilidad: visible para lectores de pantalla e indexadores, oculto visualmente */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+
 :root {
   --black: #0a0a0a;
   --black-2: #111111;
