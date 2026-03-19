@@ -335,3 +335,20 @@ slideContainers.forEach(container => {
     }, Math.random() * 2000);
   }
 });
+// ==================== OFFICE HOURS STATUS ====================
+(function() {
+  const statusEl = document.getElementById('hours-status');
+  if (!statusEl) return;
+
+  // Colombia is always UTC-5 (no daylight saving)
+  const now = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Bogota' }));
+  const day  = now.getDay(); // 0=Sunday, 1=Monday, ..., 6=Saturday
+  const hour = now.getHours() + now.getMinutes() / 60;
+
+  let isOpen = false;
+  if (day >= 1 && day <= 5 && hour >= 8 && hour < 18) isOpen = true;  // Mon-Fri 8am-6pm
+  if (day === 6 && hour >= 8 && hour < 13) isOpen = true;              // Sat 8am-1pm
+
+  statusEl.textContent = isOpen ? 'Abierto ahora' : 'Cerrado ahora';
+  statusEl.className = 'hours-status ' + (isOpen ? 'open' : 'closed');
+})();
