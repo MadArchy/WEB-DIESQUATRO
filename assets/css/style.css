@@ -1120,13 +1120,16 @@ body {
 }
 
 .servicios-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 1.5rem;
   margin-top: 4rem;
 }
 
 .servicio-card {
+  flex: 1 1 260px;
+  max-width: 380px;
   position: relative;
   border-radius: 24px;
   overflow: hidden;
@@ -1245,11 +1248,16 @@ body {
 
 @media (max-width: 900px) {
   .servicios { padding: 6rem 0; }
-  .servicios-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .servicios-grid { gap: 1rem; }
 }
 @media (max-width: 560px) {
-  .servicios-grid { grid-template-columns: 1fr; }
-  .servicio-card { aspect-ratio: 4/3; }
+  .servicio-card { aspect-ratio: 4/3; max-width: 100%; }
+  .servicio-card-inner { padding: 1.5rem; justify-content: flex-end; }
+  .servicio-icon-sm { width: 36px; height: 36px; margin-bottom: 0.3rem; }
+  .servicio-icon-sm svg { width: 18px; height: 18px; }
+  .servicio-card h3 { font-size: 1.25rem; }
+  .servicio-card p { font-size: 0.75rem; line-height: 1.4; margin-bottom: 0; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .btn-servicio { padding: 0.45rem 1rem; font-size: 0.75rem; margin-top: 0.4rem; }
 }
 
 /* ==================== FOOTER ==================== */
@@ -1483,8 +1491,35 @@ body {
 .catalog-info { padding: 1.25rem; }
 .catalog-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; }
 .catalog-meta .ref { font-family: var(--font-display); font-size: 0.8rem; color: var(--accent); font-weight: 700; }
-.color-dot { width: 16px; height: 16px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 0 5px rgba(255,255,255,0.1); }
-.catalog-item h4 { font-family: var(--font-display); font-size: 1rem; color: var(--white); margin-bottom: 1.25rem; }
+.catalog-price { font-size: 0.95rem; color: var(--white); font-weight: 700; }
+.catalog-item h4 { font-family: var(--font-display); font-size: 1.05rem; color: var(--white); margin-bottom: 0.8rem; }
+
+.catalog-options {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 1.25rem; padding-top: 0.8rem;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+.size-selector { display: flex; gap: 0.3rem; }
+.size-btn {
+  background: transparent; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.6);
+  width: 26px; height: 26px; border-radius: 4px;
+  font-family: var(--font-display); font-size: 0.7rem; font-weight: 600;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: all 0.2s;
+}
+.size-btn:hover { border-color: var(--white); color: var(--white); }
+.size-btn.active { background: var(--accent); color: var(--black); border-color: var(--accent); }
+
+.color-palette { display: flex; gap: 0.4rem; }
+.color-btn {
+  width: 18px; height: 18px; border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.1);
+  background-color: var(--btn-color, #fff);
+  cursor: pointer; transition: all 0.2s;
+  box-shadow: inset 0 0 4px rgba(0,0,0,0.5);
+}
+.color-btn:hover { transform: scale(1.15); border-color: rgba(255,255,255,0.8); }
+.color-btn.active { border-color: var(--accent); transform: scale(1.15); box-shadow: 0 0 8px rgba(201,168,76,0.6); }
 .btn-catalog-wa {
   display: flex; align-items: center; justify-content: center; gap: 0.5rem;
   width: 100%; text-align: center;
@@ -1628,3 +1663,70 @@ body {
 .modal-title { font-family: var(--font-display); font-size: 1.6rem; margin-bottom: 0.3rem; color: var(--white); }
 .modal-desc { color: rgba(255,255,255,0.5); margin-bottom: 1.5rem; font-size: 0.9rem; }
 .map-container { width: 100%; height: 260px; border-radius: var(--radius); overflow: hidden; background: #1a1a1a; }
+
+/* ==================== RESPONSIVE CATALOG ==================== */
+@media (max-width: 768px) {
+  .catalog-modal-content {
+    padding: 1.5rem 1rem !important;
+    width: 100% !important;
+    border-radius: var(--radius) !important;
+  }
+  .catalog-header .modal-title {
+    font-size: 1.4rem;
+  }
+  .catalog-header .modal-desc {
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+  }
+  #btn-download-catalog {
+    font-size: 0.85rem !important;
+    padding: 0.8rem 1rem !important;
+    width: 100%;
+  }
+  .catalog-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  .catalog-item .catalog-img-wrap {
+    aspect-ratio: 1 / 1; 
+  }
+  .catalog-info {
+    padding: 1rem;
+  }
+  .catalog-item h4 {
+    font-size: 1.1rem;
+  }
+  .catalog-price {
+    font-size: 1rem;
+  }
+  .catalog-options {
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    padding-top: 1rem;
+  }
+  .size-btn {
+    width: 32px; height: 32px; 
+    font-size: 0.85rem;
+  }
+  .color-btn {
+    width: 24px; height: 24px; 
+  }
+  .btn-catalog-wa {
+    padding: 1rem;
+    font-size: 0.85rem;
+  }
+  
+  /* Fix AXO Store Logo for mobile */
+  .brand-header {
+    flex-direction: column; /* Apilar elementos si hubieran más */
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    align-items: center; /* Centrar logo */
+  }
+  .axo-logo-wrap {
+    width: 90%; 
+    max-width: 240px; /* Reducir a un tamaño noble para el dedo/pantalla */
+    margin-left: 0; /* Quitar el margen negativo drástico */
+    margin-bottom: 1.5rem;
+  }
+}
