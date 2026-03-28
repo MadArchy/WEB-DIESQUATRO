@@ -262,6 +262,27 @@ if (locationBtn && locationModal) {
   });
 }
 
+// ==================== CATALOG MODAL ====================
+const catalogModal = document.getElementById('catalog-modal');
+const closeCatalogModal = document.getElementById('close-catalog-modal');
+const btnProductos = document.querySelectorAll('.btn-producto');
+
+if (catalogModal) {
+  // Cuando hacen clic en Consultar Catálogo en las fichas
+  btnProductos.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault(); // Evitamos que salte a WhatsApp
+      catalogModal.classList.add('active');
+    });
+  });
+
+  const closeCatalog = () => catalogModal.classList.remove('active');
+  if (closeCatalogModal) closeCatalogModal.addEventListener('click', closeCatalog);
+  catalogModal.addEventListener('click', (e) => {
+    if (e.target === catalogModal) closeCatalog();
+  });
+}
+
 // ==================== RANDOM WATERMARKS ====================
 const productosSection = document.getElementById('productos');
 if (productosSection) {
@@ -318,23 +339,38 @@ if (productosSection) {
   }, 1200); // 1.2s between flashes
 }
 
-// ==================== PRODUCTOS SLIDESHOW ====================
+// ==================== PRODUCTOS SLIDESHOW (PERFORMANCE OPTIMIZED) ====================
 const slideContainers = document.querySelectorAll('.slide-container');
-slideContainers.forEach(container => {
-  const slides = container.querySelectorAll('.producto-slider-img');
-  if (slides.length > 1) {
-    let currentSlide = 0;
-    // Agregamos un pequeño retraso aleatorio para que cada carrusel
-    // cambie en momentos distintos, haciéndolo lucir mucho más dinámico y natural.
-    setTimeout(() => {
-      setInterval(() => {
-        slides[currentSlide].classList.remove('active');
-        currentSlide = (currentSlide + 1) % slides.length;
-        slides[currentSlide].classList.add('active');
-      }, 3500); // Cambiar la imagen cada 3.5 segundos con transición suave
-    }, Math.random() * 2000);
-  }
-});
+
+// Creamos un observador para detener la animación de los sliders si no están en pantalla
+const sliderObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    // Usamos el dataset para pausar/reanudar
+    entry.target.dataset.playing = entry.isIntersecting ? "true" : "false";
+  });
+}, { threshold: 0.1 });
+
+// Solo inicializamos si hay contenedores
+if (slideContainers.length > 0) {
+  slideContainers.forEach(container => {
+    sliderObserver.observe(container); // Iniciar la observación
+    const slides = container.querySelectorAll('.producto-slider-img');
+    
+    if (slides.length > 1) {
+      let currentSlide = 0;
+      setTimeout(() => {
+        setInterval(() => {
+          // Solo se ejecuta la animación si el carrito de slide está en el area visible
+          if (container.dataset.playing === "true") {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+          }
+        }, 3500);
+      }, Math.random() * 2000); // Retraso natural
+    }
+  });
+}
 // ==================== OFFICE HOURS STATUS ====================
 (function() {
   const statusEl = document.getElementById('hours-status');
