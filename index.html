@@ -91,8 +91,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="assets/css/fonts.css" />
   <link rel="stylesheet" href="assets/css/style.css?v=16" />
+  <link rel="stylesheet" href="assets/css/premium_catalog.css" />
+</head>
 
 <body>
+  <!-- Hidden dummy modal to satisfy legacy JS catalog check -->
+  <div id="catalog-modal" style="display:none;"></div>
 
   <!-- ===================== NAVBAR ===================== -->
   <header id="navbar">
@@ -342,7 +346,7 @@
           <div class="producto-info">
             <h3>Hombres</h3>
             <p>Polos y prendas de alto rendimiento con cortes modernos y tecnología textil avanzada. Estilo superior para el día a día.</p>
-            <a href="https://wa.me/573142253136?text=Hola%2C%20me%20interesa%20la%20colecci%C3%B3n%20de%20Hombres." class="btn-producto" target="_blank" rel="noopener">Consultar Catálogo</a>
+            <a href="#" class="btn-producto">Consultar Catálogo</a>
           </div>
         </div>
 
@@ -614,24 +618,34 @@
     </div>
   </div>
 
-  <!-- Catálogo Modal (Vista Flotante) -->
-  <div class="modal-overlay" id="catalog-modal">
-    <div class="modal-content catalog-modal-content">
-      <button class="modal-close" id="close-catalog-modal" aria-label="Cerrar">&times;</button>
-      <div class="catalog-header" style="text-align: center; margin-bottom: 2rem;">
-        <h3 class="modal-title">Colección <span class="accent">Polos DiesQuatro</span></h3>
-        <p class="modal-desc">Catálogo Oficial Mayorista. Selecciona talla y color para armar tu cotización directa de fábrica.</p>
-        <button class="btn-producto" id="btn-download-catalog" style="margin-top: 1rem; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; background-color: var(--accent-light); color: #000;">
-          <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-          Descargar Colección PDF
-        </button>
+  <!-- Premium Catalog Overlay -->
+  <div id="premium-catalog-overlay">
+    <div class="pc-loader" id="pc-loader">
+      <div class="logo-dq-wrap">
+        <span class="logo-d" style="font-size: 5rem;">D</span><span class="logo-q" style="font-size: 5rem;">Q</span>
       </div>
-      <div class="catalog-grid" id="polo-catalog-container">
-        <!-- Renderizado dinámicamente vía script.js -->
+    </div>
+    
+    <header class="pc-header">
+      <div class="logo-dq-wrap">
+        <span class="logo-d">D</span><span class="logo-q">Q</span>
+        <span style="font-family: 'Outfit'; font-size: 0.7rem; letter-spacing: 0.2rem; margin-left: 1rem; color: var(--pc-accent);">HOMMES ÉLITE</span>
       </div>
+      <button class="pc-close-btn" id="pc-close-btn">CERRAR BOUTIQUE</button>
+    </header>
+
+    <div class="pc-grid" id="pc-grid">
+      <!-- Dynamically filled by JS -->
     </div>
   </div>
 
-  <script src="assets/js/script.js?v=6" defer></script>
+  <!-- Detail Modal -->
+  <div id="pc-detail-modal">
+    <div class="pc-detail-inner" id="pc-detail-content">
+      <!-- Dynamically filled by JS -->
+    </div>
+  </div>
+
+  <script src="assets/js/script.js?v=7" defer></script>
 </body>
 </html>

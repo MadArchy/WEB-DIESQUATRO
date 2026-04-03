@@ -262,29 +262,16 @@ if (locationBtn && locationModal) {
   });
 }
 
-// ==================== CATALOG MODAL POLOS ====================
+// ==================== CATALOG MODAL POLOS (DEFAULT) ====================
 const catalogModal = document.getElementById('catalog-modal');
 const closeCatalogModal = document.getElementById('close-catalog-modal');
 const btnProductos = document.querySelectorAll('.btn-producto');
 const catalogContainer = document.getElementById('polo-catalog-container');
 
-// 15 Polos mock data con 3 variables de color usando HUE rotations sobre base neutra y combinaciones
 const polosData = [
   { id: '101', name: 'Polo Clásico Blanco', price: '$35.000', base: 'https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=500&q=80', colors: [ { n: 'Blanco', h: '#f5f5f5', f: 'hue-rotate(0deg) brightness(1.2)' }, { n: 'Negro Élite', h: '#111', f: 'grayscale(100%) brightness(0.25)' }, { n: 'Gris Jaspe', h: '#888', f: 'grayscale(100%) brightness(0.7)' } ] },
   { id: '102', name: 'Polo Azul Marino', price: '$38.000', base: 'https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=500&q=80', colors: [ { n: 'A. Marino', h: '#1b365d', f: 'hue-rotate(200deg) brightness(0.7) saturate(1.5)' }, { n: 'Celeste', h: '#00b4d8', f: 'hue-rotate(180deg) brightness(1.1) saturate(1.5)' }, { n: 'Zafiro', h: '#0047ab', f: 'hue-rotate(205deg) brightness(0.8) saturate(2)' } ] },
-  { id: '103', name: 'Polo Verde Selva', price: '$35.000', base: 'https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=500&q=80', colors: [ { n: 'Botella', h: '#004b23', f: 'hue-rotate(140deg) brightness(0.6) saturate(1.5)' }, { n: 'Oliva', h: '#556b2f', f: 'hue-rotate(60deg) brightness(0.6) saturate(1.2)' }, { n: 'Esmeralda', h: '#50c878', f: 'hue-rotate(130deg) brightness(0.9) saturate(2)' } ] },
-  { id: '104', name: 'Polo Fuego', price: '$35.000', base: 'https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=500&q=80', colors: [ { n: 'Rojo', h: '#d90429', f: 'hue-rotate(350deg) brightness(0.9) saturate(2)' }, { n: 'Vinotinto', h: '#8b0000', f: 'hue-rotate(330deg) brightness(0.8) saturate(2)' }, { n: 'Naranja', h: '#f77f00', f: 'hue-rotate(20deg) brightness(1) saturate(1.5)' } ] },
-  { id: '105', name: 'Polo Sol Mágico', price: '$38.000', base: 'https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=500&q=80', colors: [ { n: 'Mostaza', h: '#ffb703', f: 'hue-rotate(45deg) brightness(1.1) saturate(2)' }, { n: 'Amarillo', h: '#ffd166', f: 'hue-rotate(50deg) brightness(1.3) saturate(2)' }, { n: 'Crema', h: '#fefae0', f: 'hue-rotate(40deg) brightness(1.4) saturate(0.5)' } ] },
-  { id: '106', name: 'Polo Imperial', price: '$40.000', base: 'https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=500&q=80', colors: [ { n: 'Púrpura', h: '#7209b7', f: 'hue-rotate(270deg) brightness(0.8) saturate(1.5)' }, { n: 'Lila', h: '#c8b6ff', f: 'hue-rotate(260deg) brightness(1.2) saturate(1)' }, { n: 'Uva', h: '#3c096c', f: 'hue-rotate(280deg) brightness(0.5) saturate(2)' } ] },
-  { id: '107', name: 'Polo Tierra', price: '$35.000', base: 'https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=500&q=80', colors: [ { n: 'Café', h: '#5c4033', f: 'hue-rotate(25deg) brightness(0.5) saturate(1.2)' }, { n: 'Beige', h: '#dcd1b4', f: 'hue-rotate(30deg) brightness(1.2) saturate(0.4)' }, { n: 'Arena', h: '#ebd5b3', f: 'hue-rotate(28deg) brightness(1.3) saturate(0.5)' } ] },
-  { id: '108', name: 'Polo Rosé', price: '$36.000', base: 'https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=500&q=80', colors: [ { n: 'Rosado', h: '#ffafcc', f: 'hue-rotate(310deg) brightness(1.2) saturate(1.2)' }, { n: 'Fucsia', h: '#f15bb5', f: 'hue-rotate(300deg) brightness(1) saturate(2)' }, { n: 'Palo Rosa', h: '#e5989b', f: 'hue-rotate(330deg) brightness(1) saturate(0.8)' } ] },
-  { id: '109', name: 'Polo Menta', price: '$38.000', base: 'https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=500&q=80', colors: [ { n: 'Menta', h: '#a3b18a', f: 'hue-rotate(80deg) brightness(1.1) saturate(0.6)' }, { n: 'Turquesa', h: '#00f5d4', f: 'hue-rotate(150deg) brightness(1.2) saturate(1.5)' }, { n: 'Aqua', h: '#48cae4', f: 'hue-rotate(170deg) brightness(1.1) saturate(1.8)' } ] },
-  { id: '110', name: 'Polo Profundo', price: '$40.000', base: 'https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=500&q=80', colors: [ { n: 'Carbón', h: '#333333', f: 'grayscale(100%) brightness(0.4)' }, { n: 'Plata', h: '#c0c0c0', f: 'grayscale(100%) brightness(1.1)' }, { n: 'Acero', h: '#71797e', f: 'hue-rotate(200deg) brightness(0.8) saturate(0.1)' } ] },
-  { id: '111', name: 'Polo Neón', price: '$35.000', base: 'https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=500&q=80', colors: [ { n: 'Lima', h: '#ccff00', f: 'hue-rotate(60deg) brightness(1.3) saturate(3)' }, { n: 'Cian', h: '#00ffff', f: 'hue-rotate(160deg) brightness(1.3) saturate(3)' }, { n: 'Magenta', h: '#ff00ff', f: 'hue-rotate(280deg) brightness(1.3) saturate(3)' } ] },
-  { id: '112', name: 'Polo Pastel', price: '$35.000', base: 'https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=500&q=80', colors: [ { n: 'Hielo', h: '#e0fbfc', f: 'hue-rotate(180deg) brightness(1.4) saturate(0.3)' }, { n: 'Lavanda', h: '#e0c3fc', f: 'hue-rotate(260deg) brightness(1.3) saturate(0.5)' }, { n: 'Durazno', h: '#ffe5d9', f: 'hue-rotate(5deg) brightness(1.4) saturate(0.4)' } ] },
-  { id: '113', name: 'Polo Océano', price: '$38.000', base: 'https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=500&q=80', colors: [ { n: 'Indigo', h: '#3f37c9', f: 'hue-rotate(220deg) brightness(0.8) saturate(2)' }, { n: 'Cobalto', h: '#4361ee', f: 'hue-rotate(215deg) brightness(0.9) saturate(2.5)' }, { n: 'Cielo', h: '#4cc9f0', f: 'hue-rotate(185deg) brightness(1.1) saturate(2)' } ] },
-  { id: '114', name: 'Polo Ejecutivo', price: '$40.000', base: 'https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=500&q=80', colors: [ { n: 'Bordo', h: '#450920', f: 'hue-rotate(330deg) brightness(0.4) saturate(1.5)' }, { n: 'Moztaza Oscuro', h: '#a53860', f: 'hue-rotate(320deg) brightness(0.7) saturate(1.2)' }, { n: 'Tinto', h: '#660708', f: 'hue-rotate(350deg) brightness(0.5) saturate(1.8)' } ] },
-  { id: '115', name: 'Polo Élite Gold', price: '$45.000', base: 'https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=500&q=80', colors: [ { n: 'Oro', h: '#eebfa5', f: 'hue-rotate(30deg) brightness(1.1) saturate(1.5)' }, { n: 'Bronce', h: '#cd7f32', f: 'hue-rotate(20deg) brightness(0.9) saturate(1.8)' }, { n: 'Platino', h: '#e5e4e2', f: 'grayscale(100%) brightness(1.2)' } ] }
+  { id: '103', name: 'Polo Verde Selva', price: '$35.000', base: 'https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=500&q=80', colors: [ { n: 'Botella', h: '#004b23', f: 'hue-rotate(140deg) brightness(0.6) saturate(1.5)' }, { n: 'Oliva', h: '#556b2f', f: 'hue-rotate(60deg) brightness(0.6) saturate(1.2)' }, { n: 'Esmeralda', h: '#50c878', f: 'hue-rotate(130deg) brightness(0.9) saturate(2)' } ] }
 ];
 
 if (catalogContainer) {
@@ -296,117 +283,47 @@ if (catalogContainer) {
     sizes.forEach((s, idx) => {
       sizesHtml += `<button class="size-btn ${idx===1?'active':''}" data-size="${s}">${s}</button>`;
     });
-
     let colorsHtml = '';
     p.colors.forEach((c, idx) => {
-      colorsHtml += `<button class="color-btn ${idx===0?'active':''}" style="--btn-color:${c.h}" data-filter="${c.f}" data-cname="${c.n}" aria-label="Color ${c.n}"></button>`;
+      colorsHtml += `<button class="color-btn ${idx===0?'active':''}" style="--btn-color:${c.h}" data-filter="${c.f}" data-cname="${c.n}"></button>`;
     });
-
-    html += `
-      <div class="catalog-item" id="item-${p.id}">
-        <div class="catalog-img-wrap">
-          <img src="${p.base}" alt="${p.name}" class="polo-dyn-img" style="filter: ${c0.f};">
-        </div>
+    html += `<div class="catalog-item">
+        <div class="catalog-img-wrap"><img src="${p.base}" class="polo-dyn-img" style="filter: ${c0.f};"></div>
         <div class="catalog-info">
-          <div class="catalog-meta">
-            <span class="ref">REF: DQ-${p.id}</span>
-            <span class="catalog-price">${p.price}</span>
-          </div>
           <h4>${p.name}</h4>
-          
-          <div class="catalog-options">
-            <div class="size-selector">${sizesHtml}</div>
-            <div class="color-palette">${colorsHtml}</div>
-          </div>
-
-          <a href="#" class="btn-catalog-wa dyn-wa-btn" 
-             data-ref="DQ-${p.id}" 
-             data-size="M" 
-             data-color="${c0.n}">
-             <span class="wa-icon-btn"></span> Cotizar Ref.
-          </a>
+          <div class="catalog-options"><div class="size-selector">${sizesHtml}</div><div class="color-palette">${colorsHtml}</div></div>
+          <a href="#" class="btn-catalog-wa dyn-wa-btn" data-ref="DQ-${p.id}" data-size="M" data-color="${c0.n}">Cotizar Ref.</a>
         </div>
-      </div>
-    `;
+      </div>`;
   });
   catalogContainer.innerHTML = html;
+}
 
-  // Interacciones Dinámicas
-  const items = document.querySelectorAll('.catalog-item');
-  items.forEach(item => {
-    const sizeBtns = item.querySelectorAll('.size-btn');
-    const colorBtns = item.querySelectorAll('.color-btn');
-    const img = item.querySelector('.polo-dyn-img');
-    const waBtn = item.querySelector('.dyn-wa-btn');
-
-    // Mange Size Clicks
-    sizeBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        sizeBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        waBtn.setAttribute('data-size', btn.getAttribute('data-size'));
-        updateWaLink(waBtn);
-      });
-    });
-
-    // Manage Color Clicks
-    colorBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        colorBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        img.style.filter = btn.getAttribute('data-filter');
-        waBtn.setAttribute('data-color', btn.getAttribute('data-cname'));
-        updateWaLink(waBtn);
-      });
-    });
-
-    updateWaLink(waBtn);
+// ==================== BUTTON CLICK ROUTING ====================
+// Premium Catalog button for Hombres - runs ALWAYS, independent of other modals
+const hombresBtn = document.querySelector('#card-hombres .btn-producto');
+if (hombresBtn) {
+  hombresBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    openPremiumCatalog();
   });
 }
 
-function updateWaLink(btn) {
-  const ref = btn.getAttribute('data-ref');
-  const size = btn.getAttribute('data-size');
-  const color = btn.getAttribute('data-color');
-  const msg = `Hola DiesQuatro, me interesa pedir la REFERENCIA: ${ref}. Detalles -> Talla: ${size} | Color: ${color}.`;
-  btn.href = `https://wa.me/573142253136?text=${encodeURIComponent(msg)}`;
-  btn.target = "_blank";
-}
-
+// Default catalog modal for other sections
 if (catalogModal) {
   btnProductos.forEach(btn => {
     btn.addEventListener('click', (e) => {
-      // Evitar que el modal se abra si presionan el botón de PDF que tiene la misma clase
-      if(btn.id !== 'btn-download-catalog') {
+      if (btn.closest('#card-hombres')) return; // Already handled above
+      if (btn.id !== 'btn-download-catalog') {
         e.preventDefault();
         catalogModal.classList.add('active');
       }
     });
   });
-
   const closeCatalog = () => catalogModal.classList.remove('active');
   if (closeCatalogModal) closeCatalogModal.addEventListener('click', closeCatalog);
-  catalogModal.addEventListener('click', (e) => {
-    if (e.target === catalogModal) closeCatalog();
-  });
-}
-
-// Lógica del botón Descargar Catálogo PDF
-const btnDownloadCatalog = document.getElementById('btn-download-catalog');
-if (btnDownloadCatalog) {
-  btnDownloadCatalog.addEventListener('click', (e) => {
-    e.preventDefault();
-    const originalText = btnDownloadCatalog.innerHTML;
-    btnDownloadCatalog.innerHTML = 'Generando Memoria PDF...';
-    btnDownloadCatalog.style.opacity = '0.7';
-    
-    // Simulación de carga y "descarga"
-    setTimeout(() => {
-      alert("Catálogo preparándose. Esta función puede conectar a un generador PDF (jsPDF) o lanzar la descarga de un archivo pre-hecho como /assets/docs/catalogo_diesquatro.pdf.");
-      btnDownloadCatalog.innerHTML = originalText;
-      btnDownloadCatalog.style.opacity = '1';
-    }, 1500);
-  });
+  catalogModal.addEventListener('click', (e) => { if (e.target === catalogModal) closeCatalog(); });
 }
 
 // ==================== RANDOM WATERMARKS ====================
@@ -414,103 +331,217 @@ const productosSection = document.getElementById('productos');
 if (productosSection) {
   const wmContainer = document.createElement('div');
   wmContainer.className = 'watermarks-container';
-  
-  const rows = 5;
-  const cols = 3;
-  const logos = [];
-  
+  const rows = 5, cols = 3, logos = [];
   for (let r = 0; r < rows; r++) {
     for (let c = 0; c < cols; c++) {
       const wm = document.createElement('div');
       wm.className = 'wm-logo';
-      
-      // Divide el fondo en celdas para asegurar una distribución perfecta y uniforme
-      const cellWidth = 100 / cols;
-      const cellHeight = 100 / rows;
-      
-      // Posiciona la marca de agua con una ligera aleatoriedad dentro de su cuadrícula
-      const topOffset = (r * cellHeight) + (Math.random() * (cellHeight * 0.6) + cellHeight * 0.2);
-      const leftOffset = (c * cellWidth) + (Math.random() * (cellWidth * 0.6) + cellWidth * 0.2);
-      
-      wm.style.top = `${topOffset}%`;
-      wm.style.left = `${leftOffset}%`;
-      wm.style.transform = `rotate(${Math.random() * 60 - 30}deg)`;
-      
+      wm.style.top = `${(r * 20) + 10}%`;
+      wm.style.left = `${(c * 33) + 16}%`;
       const img = document.createElement('img');
       img.src = 'assets/img/logo.webp';
-      img.alt = '';
-      
       wm.appendChild(img);
       wmContainer.appendChild(wm);
       logos.push(wm);
     }
   }
-  
   productosSection.insertBefore(wmContainer, productosSection.firstChild);
-  
-  // Random flashing
-  setInterval(() => {
-    // Pick a random logo that isn't already flashing
-    const availableLogos = logos.filter(l => !l.classList.contains('flash'));
-    if (availableLogos.length > 0) {
-      const idx = Math.floor(Math.random() * availableLogos.length);
-      const chosen = availableLogos[idx];
-      chosen.classList.add('flash');
-      
-      // Remove class after animation (2000ms matches CSS + buffer)
-      setTimeout(() => {
-        chosen.classList.remove('flash');
-      }, 2500);
-    }
-  }, 1200); // 1.2s between flashes
 }
 
-// ==================== PRODUCTOS SLIDESHOW (PERFORMANCE OPTIMIZED) ====================
-const slideContainers = document.querySelectorAll('.slide-container');
-
-// Creamos un observador para detener la animación de los sliders si no están en pantalla
-const sliderObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    // Usamos el dataset para pausar/reanudar
-    entry.target.dataset.playing = entry.isIntersecting ? "true" : "false";
-  });
-}, { threshold: 0.1 });
-
-// Solo inicializamos si hay contenedores
-if (slideContainers.length > 0) {
-  slideContainers.forEach(container => {
-    sliderObserver.observe(container); // Iniciar la observación
-    const slides = container.querySelectorAll('.producto-slider-img');
-    
-    if (slides.length > 1) {
-      let currentSlide = 0;
-      setTimeout(() => {
-        setInterval(() => {
-          // Solo se ejecuta la animación si el carrito de slide está en el area visible
-          if (container.dataset.playing === "true") {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].classList.add('active');
-          }
-        }, 3500);
-      }, Math.random() * 2000); // Retraso natural
-    }
-  });
-}
 // ==================== OFFICE HOURS STATUS ====================
 (function() {
   const statusEl = document.getElementById('hours-status');
   if (!statusEl) return;
-
-  // Colombia is always UTC-5 (no daylight saving)
   const now = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Bogota' }));
-  const day  = now.getDay(); // 0=Sunday, 1=Monday, ..., 6=Saturday
-  const hour = now.getHours() + now.getMinutes() / 60;
-
-  let isOpen = false;
-  if (day >= 1 && day <= 5 && hour >= 8 && hour < 18) isOpen = true;  // Mon-Fri 8am-6pm
-  if (day === 6 && hour >= 8 && hour < 13) isOpen = true;              // Sat 8am-1pm
-
+  const day  = now.getDay(), hour = now.getHours() + now.getMinutes() / 60;
+  let isOpen = (day >= 1 && day <= 5 && hour >= 8 && hour < 18) || (day === 6 && hour >= 8 && hour < 13);
   statusEl.textContent = isOpen ? 'Abierto ahora' : 'Cerrado ahora';
   statusEl.className = 'hours-status ' + (isOpen ? 'open' : 'closed');
 })();
+
+// ==================== SLIDESHOW ====================
+const slideContainers = document.querySelectorAll('.slide-container');
+slideContainers.forEach(container => {
+  const slides = container.querySelectorAll('.producto-slider-img');
+  if (slides.length > 1) {
+    let current = 0;
+    setInterval(() => {
+      slides[current].classList.remove('active');
+      current = (current + 1) % slides.length;
+      slides[current].classList.add('active');
+    }, 3500);
+  }
+});
+
+
+// ==================== PREMIUM CATALOG LOGIC (HOMBRES) ====================
+const CATALOGO_HOMBRES = [
+  {
+    id: 'polo-01',
+    ref: 'DQ-H01',
+    nombre: 'Polo Élite Executive',
+    precio: 45000,
+    baseFolder: 'assets/img/hombres/polo 1/',
+    variantes: [
+      { color: 'Classic White', img: 'WhatsApp Image 2026-03-24 at 7.00.54 PM.jpeg' },
+      { color: 'Deep Black', img: 'WhatsApp Image 2026-03-24 at 7.00.54 PM (1).jpeg' },
+      { color: 'Midnight Blue', img: 'WhatsApp Image 2026-03-24 at 7.00.54 PM (2).jpeg' },
+      { color: 'Burgundy', img: 'WhatsApp Image 2026-03-24 at 7.00.54 PM (3).jpeg' }
+    ]
+  },
+  {
+    id: 'polo-02',
+    ref: 'DQ-H02',
+    nombre: 'Polo Urban Sport',
+    precio: 38000,
+    baseFolder: 'assets/img/hombres/polo 2/',
+    variantes: [
+      { color: 'Slate Grey', img: 'WhatsApp Image 2026-03-24 at 7.01.16 PM.jpeg' },
+      { color: 'Navy', img: 'WhatsApp Image 2026-03-24 at 7.01.16 PM (1).jpeg' },
+      { color: 'Forest Green', img: 'WhatsApp Image 2026-03-24 at 7.01.16 PM (2).jpeg' },
+      { color: 'Crimson', img: 'WhatsApp Image 2026-03-24 at 7.01.16 PM (3).jpeg' }
+    ]
+  },
+  {
+    id: 'polo-03',
+    ref: 'DQ-H03',
+    nombre: 'Polo Performance Pro',
+    precio: 42000,
+    baseFolder: 'assets/img/hombres/polo 3/',
+    variantes: [
+      { color: 'Azure', img: 'WhatsApp Image 2026-03-24 at 7.07.22 PM.jpeg' },
+      { color: 'Olive', img: 'WhatsApp Image 2026-03-24 at 7.07.22 PM (1).jpeg' },
+      { color: 'Silver', img: 'WhatsApp Image 2026-03-24 at 7.07.22 PM (2).jpeg' }
+    ]
+  },
+  {
+    id: 'polo-04',
+    ref: 'DQ-H04',
+    nombre: 'Polo Legacy Edition',
+    precio: 48000,
+    baseFolder: 'assets/img/hombres/polo 4/',
+    variantes: [
+      { color: 'Variant 1', img: 'WhatsApp Image 2026-03-24 at 7.08.00 PM.jpeg' },
+      { color: 'Variant 2', img: 'WhatsApp Image 2026-03-24 at 7.08.00 PM (1).jpeg' },
+      { color: 'Variant 3', img: 'WhatsApp Image 2026-03-24 at 7.08.00 PM (2).jpeg' },
+      { color: 'Variant 4', img: 'WhatsApp Image 2026-03-24 at 7.08.00 PM (3).jpeg' },
+      { color: 'Variant 5', img: 'WhatsApp Image 2026-03-24 at 7.08.00 PM (4).jpeg' }
+    ]
+  },
+  {
+    id: 'polo-05',
+    ref: 'DQ-H05',
+    nombre: 'Polo Essential Minimal',
+    precio: 35000,
+    baseFolder: 'assets/img/hombres/polo 5/',
+    variantes: [
+      { color: 'Neutral', img: 'WhatsApp Image 2026-03-24 at 7.10.30 PM.jpeg' },
+      { color: 'Charcoal', img: 'WhatsApp Image 2026-03-24 at 7.10.30 PM (1).jpeg' }
+    ]
+  },
+  {
+    id: 'polo-06',
+    ref: 'DQ-H06',
+    nombre: 'Polo Signature Gold',
+    precio: 50000,
+    baseFolder: 'assets/img/hombres/polo 6/',
+    variantes: [
+      { color: 'Onyx', img: 'WhatsApp Image 2026-03-24 at 7.02.08 PM.jpeg' },
+      { color: 'Teal', img: 'WhatsApp Image 2026-03-24 at 7.02.08 PM (1).jpeg' },
+      { color: 'Amber', img: 'WhatsApp Image 2026-03-24 at 7.02.08 PM (2).jpeg' },
+      { color: 'Ivory', img: 'WhatsApp Image 2026-03-24 at 7.02.08 PM (3).jpeg' }
+    ]
+  }
+];
+
+const pcOverlay = document.getElementById('premium-catalog-overlay');
+const pcGrid = document.getElementById('pc-grid');
+const pcLoader = document.getElementById('pc-loader');
+const pcCloseBtn = document.getElementById('pc-close-btn');
+
+function openPremiumCatalog() {
+  pcOverlay.classList.add('active');
+  pcLoader.classList.remove('fade-out');
+  setTimeout(() => {
+    pcLoader.classList.add('fade-out');
+    renderPremiumCards();
+  }, 1200);
+}
+
+function renderPremiumCards() {
+  pcGrid.innerHTML = '';
+  CATALOGO_HOMBRES.forEach((prod) => {
+    const card = document.createElement('div');
+    card.className = 'pc-card';
+    const swatchesHTML = prod.variantes.map((v, i) => `
+      <div class="pc-swatch ${i===0?'active':''}" 
+           style="background-image: url('${prod.baseFolder}${v.img}')" 
+           data-img="${prod.baseFolder}${v.img}"
+           data-color="${v.color}"></div>
+    `).join('');
+
+    card.innerHTML = `
+      <div class="pc-card-inner">
+        <div class="pc-img-box"><img src="${prod.baseFolder}${prod.variantes[0].img}" class="pc-main-img"></div>
+        <div class="pc-info">
+          <span class="pc-category">${prod.ref}</span>
+          <h3 class="pc-name">${prod.nombre}</h3>
+          <div class="pc-bottom"><span class="pc-price">$${prod.precio.toLocaleString()}</span><div class="pc-swatches">${swatchesHTML}</div></div>
+        </div>
+      </div>`;
+
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left, y = e.clientY - rect.top;
+      const rx = (y - rect.height/2) / 10, ry = (rect.width/2 - x) / 10;
+      card.querySelector('.pc-card-inner').style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
+    });
+    card.addEventListener('mouseleave', () => { card.querySelector('.pc-card-inner').style.transform = `rotateX(0) rotateY(0)`; });
+
+    card.querySelectorAll('.pc-swatch').forEach(swatch => {
+      swatch.addEventListener('click', (e) => {
+        e.stopPropagation();
+        card.querySelectorAll('.pc-swatch').forEach(s => s.classList.remove('active'));
+        swatch.classList.add('active');
+        const img = card.querySelector('.pc-main-img');
+        img.style.opacity = '0';
+        setTimeout(() => { img.src = swatch.dataset.img; img.style.opacity = '1'; }, 300);
+      });
+    });
+    card.addEventListener('click', () => openPremiumDetail(prod));
+    pcGrid.appendChild(card);
+  });
+}
+
+const pcDetailModal = document.getElementById('pc-detail-modal');
+const pcDetailContent = document.getElementById('pc-detail-content');
+
+function openPremiumDetail(prod) {
+  const gridCard = Array.from(document.querySelectorAll('.pc-card')).find(c => c.querySelector('.pc-name').innerText === prod.nombre);
+  const activeSwatch = gridCard ? gridCard.querySelector('.pc-swatch.active') : null;
+  const currentImg = activeSwatch ? activeSwatch.dataset.img : `${prod.baseFolder}${prod.variantes[0].img}`;
+  
+  pcDetailContent.innerHTML = `
+    <div class="pc-detail-img-box"><img src="${currentImg}" style="width:100%; height:100%; object-fit:cover;"></div>
+    <div class="pc-detail-content">
+      <span class="pc-category">${prod.ref}</span>
+      <h2 style="color:#fff; font-size:2.5rem; margin-bottom:1rem;">${prod.nombre}</h2>
+      <p style="color:#888; margin-bottom:2rem;">Confección premium con los más altos estándares de calidad.</p>
+      <div style="font-size:1.5rem; color:#fff; font-weight:800; margin-bottom:2rem;">$${prod.precio.toLocaleString()}</div>
+      <div style="display:flex; gap:1rem; margin-bottom:2rem;">${['S','M','L','XL'].map(s => `<button class="pc-close-btn" style="flex:1;">${s}</button>`).join('')}</div>
+      <a href="https://wa.me/573142253136?text=${encodeURIComponent('Hola, me interesa: ' + prod.nombre)}" target="_blank" class="pc-whatsapp-btn">COTIZA POR WHATSAPP</a>
+      <button class="pc-close-btn" style="margin-top:1rem; width:100%;" onclick="closePremiumDetail()">VOLVER</button>
+    </div>`;
+  pcDetailModal.classList.add('active');
+}
+
+window.closePremiumDetail = () => pcDetailModal.classList.remove('active');
+pcCloseBtn.addEventListener('click', () => pcOverlay.classList.remove('active'));
+
+
+// Initial setup for the Premium Catalog
+document.addEventListener('DOMContentLoaded', () => {
+  // We already handled the click in the main loop above, 
+  // but if we needed any other init here, we'd add it.
+  console.log('Premium Catalog Initialized');
+});
