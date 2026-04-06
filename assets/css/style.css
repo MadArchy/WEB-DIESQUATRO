@@ -884,19 +884,24 @@ body {
 .productos .section-header .section-sub { color: rgba(255,255,255,0.6); font-weight: 300; }
 .productos-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 3rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
 }
 @media (max-width: 992px) {
   .productos-grid {
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
   }
 }
 @media (max-width: 600px) {
   .productos-grid {
     grid-template-columns: 1fr;
-    gap: 2.5rem;
+    gap: 2rem;
+  }
+  .producto-card {
+    max-width: 340px;
+    width: 88%;
+    margin: 0 auto;
   }
 }
 .producto-card {
@@ -904,11 +909,12 @@ body {
   overflow: hidden;
   border: 1px solid rgba(255,255,255,0.05);
   background: var(--black-2);
-  transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1), 
-              box-shadow 0.5s ease, 
-              border-color 0.4s ease;
+  transition: box-shadow 0.4s ease, border-color 0.4s ease;
 }
-.producto-card:hover { transform: translateY(-10px); box-shadow: 0 25px 60px rgba(0,0,0,0.7); border-color: rgba(255,255,255,0.2); }
+.producto-card:hover { 
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+  border-color: rgba(255,255,255,0.2); 
+}
 .producto-img-wrap { position: relative; overflow: hidden; aspect-ratio: 4/5; background: #050505; }
 .producto-img-real {
   width: 100%; height: 100%;
@@ -924,16 +930,32 @@ body {
 }
 /* ==================== PRODUCT CAROUSEL ==================== */
 .slide-container { position: relative; width: 100%; height: 100%; background: black; }
+.slide-arrow {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.2);
+  color: var(--white); width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%; cursor: pointer; z-index: 10; opacity: 0;
+  transition: all 0.3s ease; padding: 0;
+}
+.producto-card:hover .slide-arrow { opacity: 1; }
+.slide-arrow:hover { background: var(--accent); border-color: var(--accent); }
+.slide-arrow svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; }
+.slide-arrow.prev { left: 1rem; }
+.slide-arrow.next { right: 1rem; }
+
+@media (hover: none), (max-width: 992px) {
+  .slide-arrow { opacity: 1; background: rgba(0,0,0,0.6); }
+}
+
 .producto-slider-img {
   position: absolute; top: 0; left: 0;
   width: 100%; height: 100%;
   object-fit: contain;
   opacity: 0;
-  transition: opacity 1.5s ease-in-out, transform 4s ease;
-  transform: scale(1.05);
+  transition: opacity 1s ease-in-out;
 }
-.producto-slider-img.active { opacity: 1; transform: scale(1); z-index: 1; }
-.producto-card:hover .producto-slider-img.active { transform: scale(1.08); }
+.producto-slider-img.active { opacity: 1; z-index: 1; }
 .producto-card:hover .producto-img-placeholder { transform: scale(1.04); }
 .img-polos { background: linear-gradient(135deg, #1a1a1a 0%, #3a3a3a 100%); }
 .img-camisetas { background: linear-gradient(135deg, #2a2a2a 0%, #555 100%); }
@@ -1557,6 +1579,11 @@ body {
   .hero-image-wrap { min-height: 55vw; }
   .hero-content { padding: 4rem 2rem 2rem; }
   .nosotros .section-container { grid-template-columns: 1fr; gap: 3rem; }
+  /* Tienda editorial grid */
+  .tienda-editorial-grid { grid-template-columns: 1fr; gap: 4rem; }
+  .tienda-editorial-columns { grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .axo-logo-wrap { width: 100%; max-width: 340px; margin-left: 0; }
+  .tienda-actions { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
   .nosotros-right { grid-template-columns: 1fr 1fr 1fr; }
   .contacto-grid { grid-template-columns: 1fr; gap: 2.5rem; }
   .footer-container { grid-template-columns: 1fr; gap: 1.5rem; }
@@ -1587,8 +1614,10 @@ body {
   .nav-link:hover, .nav-link.active { background: transparent; color: var(--accent); }
   .hamburger { display: flex; }
   .nav-wa { display: none; }
-  .productos-grid { grid-template-columns: 1fr; }
+  .productos-grid { grid-template-columns: 1fr; gap: 1.5rem; }
   .nosotros-right { grid-template-columns: 1fr; }
+  .tienda-editorial-columns { grid-template-columns: 1fr; }
+  .section-container { padding: 0 1.25rem; }
   .hero-stats { 
     flex-wrap: nowrap; 
     gap: 0.2rem; 
@@ -1622,10 +1651,26 @@ body {
   .btn-primary, .btn-secondary { 
     text-align: center; 
     justify-content: center; 
-    padding: 0.75rem 1.2rem; 
-    font-size: 0.85rem; 
+    padding: 0.85rem 1.2rem; 
+    font-size: 0.9rem;
+    min-height: 48px;
   }
   .contacto-form-wrap { padding: 1.5rem; }
+
+  /* Tarjetas del portal en mobile pequeño */
+  .producto-info { padding: 1rem; }
+  .producto-info h3 { font-size: 1rem; }
+  .producto-info p { font-size: 0.78rem; margin-bottom: 0.85rem; }
+  .btn-producto { 
+    display: block; width: 100%; text-align: center;
+    padding: 0.75rem 1rem; font-size: 0.8rem;
+    min-height: 44px; 
+  }
+  /* Flechas más grandes para dedos en mobile */
+  .slide-arrow { width: 44px; height: 44px; }
+  .slide-arrow svg { width: 22px; height: 22px; }
+  .slide-arrow.prev { left: 0.5rem; }
+  .slide-arrow.next { right: 0.5rem; }
 }
 
 /* ==================== MODAL ==================== */

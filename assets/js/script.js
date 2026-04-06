@@ -263,285 +263,451 @@ if (locationBtn && locationModal) {
 }
 
 // ==================== CATALOG MODAL POLOS (DEFAULT) ====================
-const catalogModal = document.getElementById('catalog-modal');
-const closeCatalogModal = document.getElementById('close-catalog-modal');
-const btnProductos = document.querySelectorAll('.btn-producto');
-const catalogContainer = document.getElementById('polo-catalog-container');
-
-const polosData = [
-  { id: '101', name: 'Polo Clásico Blanco', price: '$35.000', base: 'https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=500&q=80', colors: [ { n: 'Blanco', h: '#f5f5f5', f: 'hue-rotate(0deg) brightness(1.2)' }, { n: 'Negro Élite', h: '#111', f: 'grayscale(100%) brightness(0.25)' }, { n: 'Gris Jaspe', h: '#888', f: 'grayscale(100%) brightness(0.7)' } ] },
-  { id: '102', name: 'Polo Azul Marino', price: '$38.000', base: 'https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=500&q=80', colors: [ { n: 'A. Marino', h: '#1b365d', f: 'hue-rotate(200deg) brightness(0.7) saturate(1.5)' }, { n: 'Celeste', h: '#00b4d8', f: 'hue-rotate(180deg) brightness(1.1) saturate(1.5)' }, { n: 'Zafiro', h: '#0047ab', f: 'hue-rotate(205deg) brightness(0.8) saturate(2)' } ] },
-  { id: '103', name: 'Polo Verde Selva', price: '$35.000', base: 'https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=500&q=80', colors: [ { n: 'Botella', h: '#004b23', f: 'hue-rotate(140deg) brightness(0.6) saturate(1.5)' }, { n: 'Oliva', h: '#556b2f', f: 'hue-rotate(60deg) brightness(0.6) saturate(1.2)' }, { n: 'Esmeralda', h: '#50c878', f: 'hue-rotate(130deg) brightness(0.9) saturate(2)' } ] }
-];
-
-if (catalogContainer) {
-  let html = '';
-  polosData.forEach((p) => {
-    const c0 = p.colors[0];
-    const sizes = ['S','M','L','XL'];
-    let sizesHtml = '';
-    sizes.forEach((s, idx) => {
-      sizesHtml += `<button class="size-btn ${idx===1?'active':''}" data-size="${s}">${s}</button>`;
-    });
-    let colorsHtml = '';
-    p.colors.forEach((c, idx) => {
-      colorsHtml += `<button class="color-btn ${idx===0?'active':''}" style="--btn-color:${c.h}" data-filter="${c.f}" data-cname="${c.n}"></button>`;
-    });
-    html += `<div class="catalog-item">
-        <div class="catalog-img-wrap"><img src="${p.base}" class="polo-dyn-img" style="filter: ${c0.f};"></div>
-        <div class="catalog-info">
-          <h4>${p.name}</h4>
-          <div class="catalog-options"><div class="size-selector">${sizesHtml}</div><div class="color-palette">${colorsHtml}</div></div>
-          <a href="#" class="btn-catalog-wa dyn-wa-btn" data-ref="DQ-${p.id}" data-size="M" data-color="${c0.n}">Cotizar Ref.</a>
-        </div>
-      </div>`;
-  });
-  catalogContainer.innerHTML = html;
-}
-
-// ==================== BUTTON CLICK ROUTING ====================
-// Premium Catalog button for Hombres - runs ALWAYS, independent of other modals
-const hombresBtn = document.querySelector('#card-hombres .btn-producto');
-if (hombresBtn) {
-  hombresBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    openPremiumCatalog();
-  });
-}
-
-// Default catalog modal for other sections
-if (catalogModal) {
-  btnProductos.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      if (btn.closest('#card-hombres')) return; // Already handled above
-      if (btn.id !== 'btn-download-catalog') {
-        e.preventDefault();
-        catalogModal.classList.add('active');
-      }
-    });
-  });
-  const closeCatalog = () => catalogModal.classList.remove('active');
-  if (closeCatalogModal) closeCatalogModal.addEventListener('click', closeCatalog);
-  catalogModal.addEventListener('click', (e) => { if (e.target === catalogModal) closeCatalog(); });
-}
-
-// ==================== RANDOM WATERMARKS ====================
-const productosSection = document.getElementById('productos');
-if (productosSection) {
-  const wmContainer = document.createElement('div');
-  wmContainer.className = 'watermarks-container';
-  const rows = 5, cols = 3, logos = [];
-  for (let r = 0; r < rows; r++) {
-    for (let c = 0; c < cols; c++) {
-      const wm = document.createElement('div');
-      wm.className = 'wm-logo';
-      wm.style.top = `${(r * 20) + 10}%`;
-      wm.style.left = `${(c * 33) + 16}%`;
-      const img = document.createElement('img');
-      img.src = 'assets/img/logo.webp';
-      wm.appendChild(img);
-      wmContainer.appendChild(wm);
-      logos.push(wm);
+// ==================== CATALOGO DATA (UNIFIED) ====================
+const CATALOGO = {
+  hombres: [
+    {
+      id: 'h-01', ref: 'DQ-H01', nombre: 'Polo Élite 1', precio: 45000,
+      descripcion: 'Corte clásico con acabados de primera. Desarrollado para durabilidad extrema y uso diario.',
+      variantes: [
+        { color: 'Estilo 1', img: 'assets/img/catalogo de hombre/polo 1/WhatsApp Image 2026-03-24 at 7.00.54 PM (1).jpeg' },
+        { color: 'Estilo 2', img: 'assets/img/catalogo de hombre/polo 1/WhatsApp Image 2026-03-24 at 7.00.54 PM (2).jpeg' },
+        { color: 'Estilo 3', img: 'assets/img/catalogo de hombre/polo 1/WhatsApp Image 2026-03-24 at 7.00.54 PM (3).jpeg' },
+        { color: 'Estilo 4', img: 'assets/img/catalogo de hombre/polo 1/WhatsApp Image 2026-03-24 at 7.00.54 PM.jpeg' }
+      ]
+    },
+    {
+      id: 'h-02', ref: 'DQ-H02', nombre: 'Polo Élite 2', precio: 45000,
+      descripcion: 'Diseño minimalista con alto confort térmico y textura suave al tacto.',
+      variantes: [
+        { color: 'Estilo 1', img: 'assets/img/catalogo de hombre/polo 2/WhatsApp Image 2026-03-24 at 7.01.16 PM (1).jpeg' },
+        { color: 'Estilo 2', img: 'assets/img/catalogo de hombre/polo 2/WhatsApp Image 2026-03-24 at 7.01.16 PM (2).jpeg' },
+        { color: 'Estilo 3', img: 'assets/img/catalogo de hombre/polo 2/WhatsApp Image 2026-03-24 at 7.01.16 PM (3).jpeg' },
+        { color: 'Estilo 4', img: 'assets/img/catalogo de hombre/polo 2/WhatsApp Image 2026-03-24 at 7.01.16 PM.jpeg' }
+      ]
+    },
+    {
+      id: 'h-03', ref: 'DQ-H03', nombre: 'Polo Élite 3', precio: 45000,
+      descripcion: 'Silueta semi-ajustada ideal para proyectar una imagen formal e impecable.',
+      variantes: [
+        { color: 'Estilo 1', img: 'assets/img/catalogo de hombre/polo 3/WhatsApp Image 2026-03-24 at 7.07.22 PM (1).jpeg' },
+        { color: 'Estilo 2', img: 'assets/img/catalogo de hombre/polo 3/WhatsApp Image 2026-03-24 at 7.07.22 PM (2).jpeg' },
+        { color: 'Estilo 3', img: 'assets/img/catalogo de hombre/polo 3/WhatsApp Image 2026-03-24 at 7.07.22 PM.jpeg' }
+      ]
+    },
+    {
+      id: 'h-04', ref: 'DQ-H04', nombre: 'Polo Élite 4', precio: 45000,
+      descripcion: 'Textura microperforada en zonas estratégicas para mayor transpirabilidad.',
+      variantes: [
+        { color: 'Estilo 1', img: 'assets/img/catalogo de hombre/polo 4/WhatsApp Image 2026-03-24 at 7.08.00 PM (1).jpeg' },
+        { color: 'Estilo 2', img: 'assets/img/catalogo de hombre/polo 4/WhatsApp Image 2026-03-24 at 7.08.00 PM (2).jpeg' },
+        { color: 'Estilo 3', img: 'assets/img/catalogo de hombre/polo 4/WhatsApp Image 2026-03-24 at 7.08.00 PM (3).jpeg' },
+        { color: 'Estilo 4', img: 'assets/img/catalogo de hombre/polo 4/WhatsApp Image 2026-03-24 at 7.14.07 PM.jpeg' }
+      ]
+    },
+    {
+      id: 'h-05', ref: 'DQ-H05', nombre: 'Polo Élite 5', precio: 45000,
+      descripcion: 'Cuello rígido y puños reforzados, diseñado para máxima resistencia al uso diario continuo.',
+      variantes: [
+        { color: 'Estilo 1', img: 'assets/img/catalogo de hombre/polo 5/WhatsApp Image 2026-03-24 at 7.10.30 PM (1).jpeg' },
+        { color: 'Estilo 2', img: 'assets/img/catalogo de hombre/polo 5/WhatsApp Image 2026-03-24 at 7.10.30 PM.jpeg' }
+      ]
+    },
+    {
+      id: 'h-06', ref: 'DQ-H06', nombre: 'Polo Élite 6', precio: 45000,
+      descripcion: 'Estilo bicolor con detalles premium en botones y costuras. Auténtica calidad de exportación.',
+      variantes: [
+        { color: 'Estilo 1', img: 'assets/img/catalogo de hombre/polo 6/WhatsApp Image 2026-03-24 at 7.02.08 PM (1).jpeg' },
+        { color: 'Estilo 2', img: 'assets/img/catalogo de hombre/polo 6/WhatsApp Image 2026-03-24 at 7.02.08 PM (2).jpeg' },
+        { color: 'Estilo 3', img: 'assets/img/catalogo de hombre/polo 6/WhatsApp Image 2026-03-24 at 7.02.08 PM (3).jpeg' },
+        { color: 'Estilo 4', img: 'assets/img/catalogo de hombre/polo 6/WhatsApp Image 2026-03-24 at 7.02.08 PM.jpeg' }
+      ]
     }
-  }
-  productosSection.insertBefore(wmContainer, productosSection.firstChild);
-}
+  ],
+  mujer: [
+    {
+      id: 'w-01', ref: 'DQ-W01', nombre: 'Polo Signature Mujer', precio: 42000,
+      descripcion: 'Corte entallado que realza la silueta. 100% elegancia y confort premium.',
+      variantes: [
+        { color: 'Diseño 1', img: 'assets/img/catalogo de mujer/hombres_2.png' },
+        { color: 'Diseño 2', img: 'assets/img/catalogo de mujer/mujer_polo_1_1774728833602.png' },
+        { color: 'Diseño 3', img: 'assets/img/catalogo de mujer/mujer_polo_2_1774728855014.png' },
+        { color: 'Diseño 4', img: 'assets/img/catalogo de mujer/mujer_polo_design.png' }
+      ]
+    }
+  ],
+  ninos: [
+    {
+      id: 'k-01', ref: 'DQ-K01', nombre: 'Polo Kids Premium', precio: 28000,
+      descripcion: 'Máxima resistencia y suavidad para los más pequeños. Fibras transpirables.',
+      variantes: [
+        { color: 'Estilo 1', img: 'assets/img/catalogo de niños/mujer_polo_3_1774728880085.png' },
+        { color: 'Estilo 2', img: 'assets/img/catalogo de niños/ninos_3.png' },
+        { color: 'Estilo 3', img: 'assets/img/catalogo de niños/ninos_polo_1_1774728589424.png' },
+        { color: 'Estilo 4', img: 'assets/img/catalogo de niños/ninos_polo_3_1774728633632.png' }
+      ]
+    }
+  ],
+  accesorios: [
+    {
+      id: 'a-01', ref: 'DQ-A01', nombre: 'Gorra Elite DQ', precio: 25000,
+      descripcion: 'Bordado 3D de alta precisión y ajuste ergonómico, el complemento ideal.',
+      variantes: [
+        { color: 'Visera Playa', img: 'assets/img/catalogo de gorras/gorra_visera_1774729333727.png' },
+        { color: 'Logo Especial', img: 'assets/img/catalogo de gorras/gorras_ejemplo_parecida_1774729275453.png' },
+        { color: 'Premium', img: 'assets/img/catalogo de gorras/gorras_premium.png' },
+        { color: 'Sombrero', img: 'assets/img/catalogo de gorras/sombrero_dq_1774729299508.png' }
+      ]
+    }
+  ],
+  playa: [
+    {
+      id: 's-01', ref: 'DQ-S01', nombre: 'Swimwear Pro', precio: 55000,
+      descripcion: 'Línea Summer DiesQuatro. Secado ultra rápido y diseños que resaltan tu outfit.',
+      variantes: [
+        { color: 'Ocean', img: 'assets/img/catalogo de traje de  baño/traje_bano_1_1774730772528.png' },
+        { color: 'Navy', img: 'assets/img/catalogo de traje de  baño/traje_bano_2_1774730796168.png' },
+        { color: 'Tropical', img: 'assets/img/catalogo de traje de  baño/traje_bano_3_1774730821676.png' },
+        { color: 'GoldEdition', img: 'assets/img/catalogo de traje de  baño/traje_bano_premium.png' }
+      ]
+    }
+  ],
+  cuero: [
+    {
+      id: 'l-01', ref: 'DQ-L01', nombre: 'Cinto Legítimo DQ', precio: 65000,
+      descripcion: 'Piel genuina con acabados 100% artesanales y hebilla de aleación reforzada.',
+      variantes: [
+        { color: 'Café Claro', img: 'assets/img/catalogo de correas/correas_1_1774730995836.png' },
+        { color: 'Café Oscuro', img: 'assets/img/catalogo de correas/correas_2_1774731019971.png' },
+        { color: 'Diseño Relieve', img: 'assets/img/catalogo de correas/correas_3_1774731045485.png' },
+        { color: 'Minimal', img: 'assets/img/catalogo de correas/correas_cuero.png' }
+      ]
+    }
+  ]
+};
 
-// ==================== OFFICE HOURS STATUS ====================
-(function() {
-  const statusEl = document.getElementById('hours-status');
-  if (!statusEl) return;
-  const now = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Bogota' }));
-  const day  = now.getDay(), hour = now.getHours() + now.getMinutes() / 60;
-  let isOpen = (day >= 1 && day <= 5 && hour >= 8 && hour < 18) || (day === 6 && hour >= 8 && hour < 13);
-  statusEl.textContent = isOpen ? 'Abierto ahora' : 'Cerrado ahora';
-  statusEl.className = 'hours-status ' + (isOpen ? 'open' : 'closed');
-})();
 
-// ==================== SLIDESHOW ====================
-const slideContainers = document.querySelectorAll('.slide-container');
-slideContainers.forEach(container => {
-  const slides = container.querySelectorAll('.producto-slider-img');
-  if (slides.length > 1) {
-    let current = 0;
-    setInterval(() => {
-      slides[current].classList.remove('active');
-      current = (current + 1) % slides.length;
-      slides[current].classList.add('active');
-    }, 3500);
-  }
-});
-
-
-// ==================== PREMIUM CATALOG LOGIC (HOMBRES) ====================
-const CATALOGO_HOMBRES = [
-  {
-    id: 'polo-01',
-    ref: 'DQ-H01',
-    nombre: 'Polo Élite Executive',
-    precio: 45000,
-    baseFolder: 'assets/img/hombres/polo 1/',
-    variantes: [
-      { color: 'Classic White', img: 'WhatsApp Image 2026-03-24 at 7.00.54 PM.jpeg' },
-      { color: 'Deep Black', img: 'WhatsApp Image 2026-03-24 at 7.00.54 PM (1).jpeg' },
-      { color: 'Midnight Blue', img: 'WhatsApp Image 2026-03-24 at 7.00.54 PM (2).jpeg' },
-      { color: 'Burgundy', img: 'WhatsApp Image 2026-03-24 at 7.00.54 PM (3).jpeg' }
-    ]
-  },
-  {
-    id: 'polo-02',
-    ref: 'DQ-H02',
-    nombre: 'Polo Urban Sport',
-    precio: 38000,
-    baseFolder: 'assets/img/hombres/polo 2/',
-    variantes: [
-      { color: 'Slate Grey', img: 'WhatsApp Image 2026-03-24 at 7.01.16 PM.jpeg' },
-      { color: 'Navy', img: 'WhatsApp Image 2026-03-24 at 7.01.16 PM (1).jpeg' },
-      { color: 'Forest Green', img: 'WhatsApp Image 2026-03-24 at 7.01.16 PM (2).jpeg' },
-      { color: 'Crimson', img: 'WhatsApp Image 2026-03-24 at 7.01.16 PM (3).jpeg' }
-    ]
-  },
-  {
-    id: 'polo-03',
-    ref: 'DQ-H03',
-    nombre: 'Polo Performance Pro',
-    precio: 42000,
-    baseFolder: 'assets/img/hombres/polo 3/',
-    variantes: [
-      { color: 'Azure', img: 'WhatsApp Image 2026-03-24 at 7.07.22 PM.jpeg' },
-      { color: 'Olive', img: 'WhatsApp Image 2026-03-24 at 7.07.22 PM (1).jpeg' },
-      { color: 'Silver', img: 'WhatsApp Image 2026-03-24 at 7.07.22 PM (2).jpeg' }
-    ]
-  },
-  {
-    id: 'polo-04',
-    ref: 'DQ-H04',
-    nombre: 'Polo Legacy Edition',
-    precio: 48000,
-    baseFolder: 'assets/img/hombres/polo 4/',
-    variantes: [
-      { color: 'Variant 1', img: 'WhatsApp Image 2026-03-24 at 7.08.00 PM.jpeg' },
-      { color: 'Variant 2', img: 'WhatsApp Image 2026-03-24 at 7.08.00 PM (1).jpeg' },
-      { color: 'Variant 3', img: 'WhatsApp Image 2026-03-24 at 7.08.00 PM (2).jpeg' },
-      { color: 'Variant 4', img: 'WhatsApp Image 2026-03-24 at 7.08.00 PM (3).jpeg' },
-      { color: 'Variant 5', img: 'WhatsApp Image 2026-03-24 at 7.08.00 PM (4).jpeg' }
-    ]
-  },
-  {
-    id: 'polo-05',
-    ref: 'DQ-H05',
-    nombre: 'Polo Essential Minimal',
-    precio: 35000,
-    baseFolder: 'assets/img/hombres/polo 5/',
-    variantes: [
-      { color: 'Neutral', img: 'WhatsApp Image 2026-03-24 at 7.10.30 PM.jpeg' },
-      { color: 'Charcoal', img: 'WhatsApp Image 2026-03-24 at 7.10.30 PM (1).jpeg' }
-    ]
-  },
-  {
-    id: 'polo-06',
-    ref: 'DQ-H06',
-    nombre: 'Polo Signature Gold',
-    precio: 50000,
-    baseFolder: 'assets/img/hombres/polo 6/',
-    variantes: [
-      { color: 'Onyx', img: 'WhatsApp Image 2026-03-24 at 7.02.08 PM.jpeg' },
-      { color: 'Teal', img: 'WhatsApp Image 2026-03-24 at 7.02.08 PM (1).jpeg' },
-      { color: 'Amber', img: 'WhatsApp Image 2026-03-24 at 7.02.08 PM (2).jpeg' },
-      { color: 'Ivory', img: 'WhatsApp Image 2026-03-24 at 7.02.08 PM (3).jpeg' }
-    ]
-  }
-];
-
+// ==================== PREMIUM CATALOG ENGINE ====================
 const pcOverlay = document.getElementById('premium-catalog-overlay');
 const pcGrid = document.getElementById('pc-grid');
 const pcLoader = document.getElementById('pc-loader');
 const pcCloseBtn = document.getElementById('pc-close-btn');
+const pcDetailModal = document.getElementById('pc-detail-modal');
+const pcDetailContent = document.getElementById('pc-detail-content');
 
-function openPremiumCatalog() {
-  pcOverlay.classList.add('active');
-  pcLoader.classList.remove('fade-out');
-  setTimeout(() => {
-    pcLoader.classList.add('fade-out');
-    renderPremiumCards();
-  }, 1200);
+let activeRotations = new Map();
+
+function getCategoryTitle(cat) {
+  const titles = { hombres: "HOMMES ÉLITE", mujer: "WOMEN PREMIUM", ninos: "KIDS EDITION", accesorios: "ACCESORIOS", playa: "SUMMER LINE", cuero: "CUERO LEGÍTIMO" };
+  return titles[cat] || cat.toUpperCase();
 }
 
-function renderPremiumCards() {
+function openPremiumCatalog(categoria = 'hombres') {
+  pcOverlay.classList.add('active');
+  pcLoader.classList.remove('fade-out');
+  
+  // Limpiar estados previos
+  activeRotations.forEach(interval => clearInterval(interval));
+  activeRotations.clear();
+
+  // Actualizar Título
+  const titleEl = document.getElementById('pc-header-title');
+  if (titleEl) titleEl.innerText = getCategoryTitle(categoria);
+  
+  // Actualizar Filtros Activos
+  document.querySelectorAll('.pc-filter-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.cat === categoria);
+  });
+
+  setTimeout(() => {
+    pcLoader.classList.add('fade-out');
+    renderCatalog(categoria);
+  }, 1000);
+}
+
+function renderCatalog(categoria) {
   pcGrid.innerHTML = '';
-  CATALOGO_HOMBRES.forEach((prod) => {
+  const productos = CATALOGO[categoria] || [];
+  
+  productos.forEach((prod, index) => {
     const card = document.createElement('div');
     card.className = 'pc-card';
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(20px)';
+    
     const swatchesHTML = prod.variantes.map((v, i) => `
       <div class="pc-swatch ${i===0?'active':''}" 
-           style="background-image: url('${prod.baseFolder}${v.img}')" 
-           data-img="${prod.baseFolder}${v.img}"
+           style="background-image: url('${v.img}')" 
+           data-img="${v.img}"
            data-color="${v.color}"></div>
     `).join('');
 
     card.innerHTML = `
       <div class="pc-card-inner">
-        <div class="pc-img-box"><img src="${prod.baseFolder}${prod.variantes[0].img}" class="pc-main-img"></div>
+        <div class="pc-img-box">
+          <img src="${prod.variantes[0].img}" class="pc-main-img">
+          <div class="pc-badge">${prod.ref}</div>
+          <button class="slide-arrow prev" aria-label="Anterior"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+          <button class="slide-arrow next" aria-label="Siguiente"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+        </div>
         <div class="pc-info">
-          <span class="pc-category">${prod.ref}</span>
+          <span class="pc-category">${categoria.toUpperCase()}</span>
           <h3 class="pc-name">${prod.nombre}</h3>
-          <div class="pc-bottom"><span class="pc-price">$${prod.precio.toLocaleString()}</span><div class="pc-swatches">${swatchesHTML}</div></div>
+          <div class="pc-bottom">
+            <span class="pc-price">$${prod.precio.toLocaleString()}</span>
+            <div class="pc-swatches">${swatchesHTML}</div>
+          </div>
         </div>
       </div>`;
 
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left, y = e.clientY - rect.top;
-      const rx = (y - rect.height/2) / 10, ry = (rect.width/2 - x) / 10;
-      card.querySelector('.pc-card-inner').style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
-    });
-    card.addEventListener('mouseleave', () => { card.querySelector('.pc-card-inner').style.transform = `rotateX(0) rotateY(0)`; });
+    // Animación de entrada (Staggering)
+    setTimeout(() => {
+      card.style.transition = 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+      card.style.opacity = '1';
+      card.style.transform = 'translateY(0)';
+    }, index * 100);
 
-    card.querySelectorAll('.pc-swatch').forEach(swatch => {
+    let currentIdx = 0;
+
+    const navigateVariant = (direction) => {
+      stopVariantRotation(prod.id);
+      currentIdx = (currentIdx + direction + prod.variantes.length) % prod.variantes.length;
+      const v = prod.variantes[currentIdx];
+      updateCardVariant(card, v.img, v.color);
+      const swatches = card.querySelectorAll('.pc-swatch');
+      swatches.forEach(s => s.classList.remove('active'));
+      swatches[currentIdx].classList.add('active');
+    };
+
+    const slidePrev = card.querySelector('.slide-arrow.prev');
+    const slideNext = card.querySelector('.slide-arrow.next');
+    if (slidePrev) slidePrev.addEventListener('click', (e) => { e.stopPropagation(); navigateVariant(-1); });
+    if (slideNext) slideNext.addEventListener('click', (e) => { e.stopPropagation(); navigateVariant(1); });
+
+    // Touch Swipe Support
+    let touchStartX = 0;
+    const imgBox = card.querySelector('.pc-img-box');
+    imgBox.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, {passive: true});
+    imgBox.addEventListener('touchend', e => { 
+      let touchEndX = e.changedTouches[0].screenX; 
+      if(touchEndX < touchStartX - 40) { navigateVariant(1); e.stopPropagation(); } // Swiped left
+      if(touchEndX > touchStartX + 40) { navigateVariant(-1); e.stopPropagation(); } // Swiped right
+    }, {passive: true});
+
+    card.addEventListener('mouseleave', () => { 
+      stopVariantRotation(prod.id);
+    });
+
+    card.addEventListener('mouseenter', () => {
+      if (prod.variantes.length <= 1) return;
+      const interval = setInterval(() => {
+        navigateVariant(1);
+      }, 2000);
+      activeRotations.set(prod.id, interval);
+    });
+
+    // Swatches interactivity
+    card.querySelectorAll('.pc-swatch').forEach((swatch, sIdx) => {
       swatch.addEventListener('click', (e) => {
         e.stopPropagation();
+        stopVariantRotation(prod.id);
+        currentIdx = sIdx;
+        updateCardVariant(card, swatch.dataset.img, swatch.dataset.color);
         card.querySelectorAll('.pc-swatch').forEach(s => s.classList.remove('active'));
         swatch.classList.add('active');
-        const img = card.querySelector('.pc-main-img');
-        img.style.opacity = '0';
-        setTimeout(() => { img.src = swatch.dataset.img; img.style.opacity = '1'; }, 300);
       });
     });
-    card.addEventListener('click', () => openPremiumDetail(prod));
+
+    card.addEventListener('click', () => openPremiumDetail(prod, card));
     pcGrid.appendChild(card);
   });
 }
 
-const pcDetailModal = document.getElementById('pc-detail-modal');
-const pcDetailContent = document.getElementById('pc-detail-content');
+function updateCardVariant(card, imgSrc, colorName) {
+  const img = card.querySelector('.pc-main-img');
+  img.classList.add('changing');
+  setTimeout(() => {
+    img.src = imgSrc;
+    img.classList.remove('changing');
+  }, 350);
+}
 
-function openPremiumDetail(prod) {
-  const gridCard = Array.from(document.querySelectorAll('.pc-card')).find(c => c.querySelector('.pc-name').innerText === prod.nombre);
-  const activeSwatch = gridCard ? gridCard.querySelector('.pc-swatch.active') : null;
-  const currentImg = activeSwatch ? activeSwatch.dataset.img : `${prod.baseFolder}${prod.variantes[0].img}`;
+function startVariantRotation(card, prod) {
+  // Ahora manejado internamente en renderCatalog para conservar el estado
+}
+
+function stopVariantRotation(prodId) {
+  if (activeRotations.has(prodId)) {
+    clearInterval(activeRotations.get(prodId));
+    activeRotations.delete(prodId);
+  }
+}
+
+function openPremiumDetail(prod, card) {
+  const activeImg = card.querySelector('.pc-main-img').src;
+  const activeColor = card.querySelector('.pc-swatch.active').dataset.color;
   
   pcDetailContent.innerHTML = `
-    <div class="pc-detail-img-box"><img src="${currentImg}" style="width:100%; height:100%; object-fit:cover;"></div>
+    <div class="pc-detail-img-box">
+      <img src="${activeImg}" id="detail-main-img">
+    </div>
     <div class="pc-detail-content">
-      <span class="pc-category">${prod.ref}</span>
-      <h2 style="color:#fff; font-size:2.5rem; margin-bottom:1rem;">${prod.nombre}</h2>
-      <p style="color:#888; margin-bottom:2rem;">Confección premium con los más altos estándares de calidad.</p>
-      <div style="font-size:1.5rem; color:#fff; font-weight:800; margin-bottom:2rem;">$${prod.precio.toLocaleString()}</div>
-      <div style="display:flex; gap:1rem; margin-bottom:2rem;">${['S','M','L','XL'].map(s => `<button class="pc-close-btn" style="flex:1;">${s}</button>`).join('')}</div>
-      <a href="https://wa.me/573142253136?text=${encodeURIComponent('Hola, me interesa: ' + prod.nombre)}" target="_blank" class="pc-whatsapp-btn">COTIZA POR WHATSAPP</a>
-      <button class="pc-close-btn" style="margin-top:1rem; width:100%;" onclick="closePremiumDetail()">VOLVER</button>
+      <div class="pc-detail-header">
+        <span class="pc-category">${prod.ref}</span>
+        <h2>${prod.nombre}</h2>
+      </div>
+      <p class="pc-detail-desc">${prod.descripcion}</p>
+      <div class="pc-detail-price">$${prod.precio.toLocaleString()}</div>
+      
+      <div class="pc-detail-options">
+        <div class="pc-option-group">
+          <label>Talla</label>
+          <div class="pc-size-selector">
+            ${['S','M','L','XL'].map(s => `<button class="size-opt ${s==='M'?'active':''}" onclick="selectSize(this, '${s}')">${s}</button>`).join('')}
+          </div>
+        </div>
+        <div class="pc-option-group">
+          <label>Color: <span id="detail-color-name">${activeColor}</span></label>
+          <div class="pc-swatches">
+            ${prod.variantes.map(v => `
+              <div class="pc-swatch ${activeImg.includes(v.img)?'active':''}" 
+                   style="background-image: url('${v.img}')" 
+                   onclick="updateDetailVariant('${v.img}', '${v.color}', this)"></div>
+            `).join('')}
+          </div>
+        </div>
+      </div>
+      
+      <a href="#" id="wa-checkout-btn" class="pc-whatsapp-btn" onclick="checkoutWA('${prod.nombre}', '${prod.ref}')">
+        CONSULTAR DISPONIBILIDAD
+      </a>
+      <button class="pc-close-btn" style="margin-top:1.5rem; width:100%;" onclick="closePremiumDetail()">VOLVER AL CATÁLOGO</button>
     </div>`;
+  
   pcDetailModal.classList.add('active');
 }
 
+// Global scope helpers for template literals
+window.selectSize = (btn, size) => {
+  document.querySelectorAll('.size-opt').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  window.selectedSize = size;
+};
+
+window.updateDetailVariant = (imgSrc, colorName, swatch) => {
+  const img = document.getElementById('detail-main-img');
+  img.classList.add('changing');
+  document.getElementById('detail-color-name').innerText = colorName;
+  swatch.parentElement.querySelectorAll('.pc-swatch').forEach(s => s.classList.remove('active'));
+  swatch.classList.add('active');
+  window.selectedColor = colorName;
+  setTimeout(() => {
+    img.src = imgSrc;
+    img.classList.remove('changing');
+  }, 350);
+};
+
+window.checkoutWA = (nombre, ref) => {
+  const size = window.selectedSize;
+  const sizeSelector = document.querySelector('.pc-size-selector');
+  
+  if (!size && sizeSelector) {
+    sizeSelector.style.animation = 'shake 0.4s ease-in-out';
+    setTimeout(() => sizeSelector.style.animation = '', 400);
+    alert('Oops! Por favor, selecciona una talla antes de consultar.');
+    return;
+  }
+  
+  const color = window.selectedColor || document.getElementById('detail-color-name').innerText;
+  const sizeText = size ? size : 'Talla Única';
+  const msg = `Hola DiesQuatro, me interesa el producto:\n*${nombre}*\nRef: ${ref}\nColor: ${color}\nTalla: ${sizeText}\n¿Tienen disponibilidad?`;
+  window.open(`https://wa.me/573142253136?text=${encodeURIComponent(msg)}`, '_blank');
+};
+
 window.closePremiumDetail = () => pcDetailModal.classList.remove('active');
-pcCloseBtn.addEventListener('click', () => pcOverlay.classList.remove('active'));
+if (pcCloseBtn) pcCloseBtn.addEventListener('click', () => pcOverlay.classList.remove('active'));
 
-
-// Initial setup for the Premium Catalog
+// ==================== INITIALIZATION ====================
 document.addEventListener('DOMContentLoaded', () => {
-  // We already handled the click in the main loop above, 
-  // but if we needed any other init here, we'd add it.
-  console.log('Premium Catalog Initialized');
+  console.log('DiesQuatro Premium Engine Loaded');
+  
+  // Lógica de Filtros en Overlay
+  document.querySelectorAll('.pc-filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetCat = btn.dataset.cat;
+      const titleEl = document.getElementById('pc-header-title');
+      if (titleEl) titleEl.innerText = getCategoryTitle(targetCat);
+
+      document.querySelectorAll('.pc-filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      
+      // Limpiar estados previos de rotación
+      activeRotations.forEach(interval => clearInterval(interval));
+      activeRotations.clear();
+      
+      // Transición suave
+      pcGrid.style.opacity = '0';
+      setTimeout(() => {
+        renderCatalog(targetCat);
+        pcGrid.style.opacity = '1';
+      }, 300);
+    });
+  });
+  
+  // Re-bind all catalog buttons to the new engine
+  document.querySelectorAll('.btn-producto').forEach(btn => {
+    btn.removeAttribute('href');
+    btn.style.cursor = 'pointer';
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const card = btn.closest('.producto-card');
+      let cat = 'hombres';
+      if (card.id === 'card-ninos') cat = 'ninos';
+      if (card.id === 'card-mujer') cat = 'mujer';
+      if (card.id === 'card-gorras') cat = 'accesorios';
+      if (card.id === 'card-trajes') cat = 'playa';
+      if (card.id === 'card-correas') cat = 'cuero';
+      openPremiumCatalog(cat);
+    });
+  });
+
+  // ==================== AUTO SLIDER & ARROWS (PORTAL CARDS) ====================
+  const imgWraps = document.querySelectorAll('.producto-img-wrap');
+  imgWraps.forEach(wrap => {
+    const images = wrap.querySelectorAll('.producto-slider-img');
+    if (images.length > 1) {
+      let currentIndex = 0;
+      let timer;
+
+      function goTo(index) {
+        images[currentIndex].classList.remove('active');
+        currentIndex = (index + images.length) % images.length;
+        images[currentIndex].classList.add('active');
+        resetTimer();
+      }
+
+      function resetTimer() {
+        clearInterval(timer);
+        timer = setInterval(() => goTo(currentIndex + 1), 5000);
+      }
+
+      const prevBtn = wrap.querySelector('.slide-arrow.prev');
+      const nextBtn = wrap.querySelector('.slide-arrow.next');
+      if (prevBtn) prevBtn.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); goTo(currentIndex - 1); });
+      if (nextBtn) nextBtn.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); goTo(currentIndex + 1); });
+
+      // Touch Swipe Support
+      let touchStartX = 0;
+      wrap.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, {passive: true});
+      wrap.addEventListener('touchend', e => { 
+        let touchEndX = e.changedTouches[0].screenX; 
+        if(touchEndX < touchStartX - 40) goTo(currentIndex + 1); // Swiped left -> next
+        if(touchEndX > touchStartX + 40) goTo(currentIndex - 1); // Swiped right -> prev
+      }, {passive: true});
+
+      resetTimer();
+    }
+  });
+
 });
+
